@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
-#include <stdint.h>  // 추가됨!
+#include <stdint.h>  // 추가
 
 #include "parameter.h"
 #include "functions.h"
@@ -11,7 +11,7 @@
 
 double SW_TIME = 0;
 
-// 모든 float 포인터를 8비트 꼬마 상자(int8_t)로 변환
+// 모든 float 포인터를 8비트 (int8_t)로 변환
 int8_t *ifmap1 = 0;
 int8_t *ofmap1 = 0, *ofmap1l = 0, *ofmap1p = 0, *ofmap1pp = 0;
 int8_t *ofmap2 = 0, *ofmap2l = 0, *ofmap2p = 0, *ofmap2pp = 0;
@@ -25,7 +25,7 @@ int8_t *ofmap8 = 0;
 int8_t *fmap1, *bias1, *fmap2, *bias2, *fmap3, *bias3, *fmap4, *bias4, *fmap5, *bias5;
 int8_t *fmap6, *bias6, *fmap7, *bias7, *fmap8, *bias8;
 
-// 파이썬에서 뽑은 32비트 float을 읽어오자마자 8비트 정수로 변환하여 꼬마 상자에 담는 함수
+// 파이썬에서 뽑은 32비트 float을 읽어오자마자 8비트 정수로 변환하여 담는 함수
 void load_quantized_weights(const char* filepath, int8_t* buffer, size_t num_elements) {
     FILE *fp = fopen(filepath, "rb");
     if (fp == NULL) {
@@ -69,7 +69,7 @@ void conv_ref(){
 	relu(ofmap3, M_C3, E_C3, F_C3);
 	paddata(ofmap3p, ofmap3, M_C3, E_P3, E_P3, P_C4);
 
-	// Layer #4 (수정했던 M_C4, P_C5 반영됨!)
+	// Layer #4
 	convolution_G(ofmap4, ofmap3p, fmap4, M_C4, C_C4, F_C4, E_C4, R_C4, S_C4, H_C4, W_C4, 0, G_C4);
 	bias(ofmap4, bias4, M_C4, E_C4, F_C4);
 	relu(ofmap4, M_C4, E_C4, F_C4);
@@ -106,7 +106,7 @@ int main()
 
 	printf("----- AlexNet 8-BIT INT EMULATION Start -----\n\n");
 
-	// float (4바이트) -> int8_t (1바이트)로 사이즈 확 줄어듦!
+	// float (4바이트) -> int8_t (1바이트)로 사이즈 줄어듦
 	fmap1 = (int8_t*)calloc(M_C1 * C_C1 * R_C1 * S_C1, sizeof(int8_t));
 	fmap2 = (int8_t*)calloc(M_C2 * C_C2 * R_C2 * S_C2, sizeof(int8_t));
 	fmap3 = (int8_t*)calloc(M_C3 * C_C3 * R_C3 * S_C3, sizeof(int8_t));

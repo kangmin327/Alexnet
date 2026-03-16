@@ -11,7 +11,7 @@
 
 double SW_TIME = 0;
 
-// 모두 16비트(int16_t)로 변경되었습니다.
+// 모두 16비트(int16_t)로 변경
 int16_t *ifmap1 = 0;
 int16_t *ofmap1 = 0, *ofmap1p = 0, *ofmap1pp = 0;
 int16_t *ofmap2 = 0, *ofmap2p = 0, *ofmap2pp = 0;
@@ -115,7 +115,7 @@ int main()
 	bias7 = (int16_t*)calloc(M_C7, sizeof(int16_t));
 	bias8 = (int16_t*)calloc(M_C8, sizeof(int16_t));
 
-	printf("가중치를 16비트 정수(Q11)로 변환하여 불러오는 중...\n");
+	printf("가중치를 16비트 정수(Q7)로 변환하여 불러오는 중...\n");
 	load_quantized_weights("alexnet_weights_bin/fmap1.bin", fmap1, M_C1 * C_C1 * R_C1 * S_C1);
 	load_quantized_weights("alexnet_weights_bin/bias1.bin", bias1, M_C1);
 	load_quantized_weights("alexnet_weights_bin/fmap2.bin", fmap2, M_C2 * C_C2 * R_C2 * S_C2);

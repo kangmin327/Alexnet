@@ -50,7 +50,7 @@ void convolution_B(int8_t *ofmap, int8_t *ifmap, int8_t *fmap, int M, int C, int
 				if (sum > 127) sum = 127;
 				else if (sum < -128) sum = -128;
 				
-				ofmap[m*E*F + e*F + f] = (int8_t)sum; // 다시 8비트 상자에 쏙!
+				ofmap[m*E*F + e*F + f] = (int8_t)sum; // 다시 8비트로
 			}
 		}
 	}

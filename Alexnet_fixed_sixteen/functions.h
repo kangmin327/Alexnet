@@ -7,8 +7,7 @@
 #define MY_MIN(X,Y) ((X) < (Y) ? (X) : (Y))
 #define MY_MAX(X,Y) ((X) > (Y) ? (X) : (Y))
 
-// 16비트를 위한 새로운 Q-Format (소수점 11자리 = 2^11 = 2048)
-// 이제 미세한 소수점들도 뭉개지지 않고 살아남습니다!
+// 16비트를 위한 새로운 Q-Format 소수점 11자리 = 2^11 = 2048 -> 값이 잘 안나와서 소수점 7자리로 변경
 #define Q_FRAC 7
 
 void paddata(int16_t *ofmap, int16_t *ifmap, int C, int H, int W, int padding) {
@@ -33,7 +32,7 @@ void convolution_B(int16_t *ofmap, int16_t *ifmap, int16_t *fmap, int M, int C, 
 	for (m = 0; m < M; m++) {
 		for (e = 0; e < E; e++) {
 			for (f = 0; f < F; f++) {
-				// [핵심] 곱셈 누적 시 32비트도 터집니다! 64비트(int64_t) 슈퍼 창고 사용!
+				// 곱셈 누적 시 32비트도 오버플로 발생할 수 있어 64비트(int64_t) 사용
 				int64_t sum = 0; 
 				for (c = 0; c < C; c++) {
 					for (r = 0; r < R; r++) {
