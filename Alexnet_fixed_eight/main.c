@@ -40,7 +40,7 @@ void load_quantized_weights(const char* filepath, int8_t* buffer, size_t num_ele
 
     // 2. 16(2^4)을 곱해서 소수점을 정수부로 끌어올린 후, int8_t에 욱여넣음
     for(size_t i = 0; i < num_elements; i++) {
-        int32_t q_val = (int32_t)roundf(temp_float[i]);
+        int32_t q_val = (int32_t)roundf(temp_float[i] * (1 << Q_FRAC));
         if (q_val > 127) q_val = 127;
         if (q_val < -128) q_val = -128;
         buffer[i] = (int8_t)q_val;
